@@ -10,6 +10,7 @@ import java.util.List;
 
 import static ru.almatel.vats.domain.MessageFormat.MARKDOWN;
 import static ru.almatel.vats.domain.MessageFormat.NONE;
+import static ru.almatel.vats.utils.BotUtils.getName;
 import static ru.almatel.vats.utils.BotUtils.getSendMessage;
 
 public class StatusMessageProcessorImpl implements MessageProcessor {
@@ -25,11 +26,11 @@ public class StatusMessageProcessorImpl implements MessageProcessor {
     @Override
     @Transactional
     public SendMessage process(Message message) {
-        String chatId = message.getFrom().getId() + "";
+        String chatId = message.getChat().getId() + "";
         List<UserStatusDto> userStatuses = botDao.readUserStatus(chatId);
         StringBuilder answerText = new StringBuilder();
         if (userStatuses.isEmpty()) {
-            answerText.append(String.format(EMPTY_STATUS_LIST, message.getFrom().getUserName()));
+            answerText.append(String.format(EMPTY_STATUS_LIST, getName(message)));
         } else {
             answerText.append("Текущий статус оповещений:\n\n");
             for (UserStatusDto status : userStatuses) {
@@ -45,11 +46,11 @@ public class StatusMessageProcessorImpl implements MessageProcessor {
                         .append("-----------------------\n");
             }
         }
-        return getSendMessage(message.getFrom().getId() + "", answerText.toString(), MARKDOWN);
+        return getSendMessage(message.getChat().getId() + "", answerText.toString(), MARKDOWN);
     }
 
     @Override
     public boolean matchCommand(String command) {
-        return command.startsWith(COMMAND);
+        return command != null && command.startsWith(COMMAND);
     }
 }

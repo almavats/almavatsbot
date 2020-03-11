@@ -82,10 +82,14 @@ public class AlmaBotConfig {
     }
 
     @Bean
+    public MessageProcessor nullTextProcessor() {
+        return new NullTextMessageProcessorImpl();
+    }
+
+    @Bean
     public MessageProcessor deleteProcessor() {
         return new DeleteMessageProcessorImpl(almaBotDao());
     }
-
 
     @Bean
     public BotPropertyService botPropertyService() {
@@ -95,6 +99,6 @@ public class AlmaBotConfig {
     @Bean
     public MessageProcessorService messageProcessorContext() {
         return new MessageProcessorService(startProcessor(), activateProcessor(), muteProcessor(), statusProcessor(),
-                helpProcessor());
+                helpProcessor(), nullTextProcessor());
     }
 }

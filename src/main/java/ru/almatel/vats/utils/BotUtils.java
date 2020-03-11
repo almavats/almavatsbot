@@ -9,8 +9,8 @@ public class BotUtils {
     public static TelegramUser getTelegramUser(Message message, int apiPosition) {
         TelegramUser telegramUser = new TelegramUser();
         telegramUser.setApiKey(message.getText().substring(apiPosition).trim());
-        telegramUser.setName(message.getFrom().getUserName());
-        telegramUser.setChatId(message.getFrom().getId());
+        telegramUser.setName(getName(message));
+        telegramUser.setChatId(message.getChat().getId());
         return telegramUser;
     }
 
@@ -26,5 +26,13 @@ public class BotUtils {
             default:
                 return result;
         }
+    }
+
+    public static String getName(Message message) {
+        String groupTitle = message.getChat().getTitle();
+        String userName = message.getFrom().getUserName() == null ?
+                message.getFrom().getFirstName() + " " + message.getFrom().getLastName() :
+                message.getFrom().getUserName();
+        return groupTitle == null ? userName : groupTitle;
     }
 }

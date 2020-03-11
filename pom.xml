@@ -6,7 +6,7 @@
 
   <groupId>ru.almatel.vats</groupId>
   <artifactId>almavatsbot</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.3</version>
   <packaging>jar</packaging>
 
   <name>almavatsbot</name>

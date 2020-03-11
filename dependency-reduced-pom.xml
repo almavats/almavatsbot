@@ -4,7 +4,7 @@
   <groupId>ru.almatel.vats</groupId>
   <artifactId>almavatsbot</artifactId>
   <name>almavatsbot</name>
-  <version>1.0.1</version>
+  <version>1.0.3</version>
   <url>http://www.almatel.ru</url>
   <build>
     <pluginManagement>

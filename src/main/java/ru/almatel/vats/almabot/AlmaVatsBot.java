@@ -9,7 +9,6 @@ import ru.almatel.vats.service.MessageProcessorService;
 
 public class AlmaVatsBot extends TelegramLongPollingBot {
     private BotPropertyHolder botProperty;
-    private DefaultBotOptions options;
     private MessageProcessorService messageProcessor;
 
     public AlmaVatsBot(BotPropertyHolder botProperty, DefaultBotOptions options, MessageProcessorService processorContext) {
@@ -25,14 +24,12 @@ public class AlmaVatsBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        System.out.println("update: " + update);
         if (update.hasMessage()) {
             try {
                 execute(messageProcessor.process(update.getMessage()));
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
-
         }
     }
 

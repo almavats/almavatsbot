@@ -57,6 +57,6 @@ public class ActivateMessageProcessorImpl implements MessageProcessor {
 
     @Override
     public boolean matchCommand(String command) {
-        return command.startsWith(COMMAND);
+        return command != null && command.startsWith(COMMAND);
     }
 }

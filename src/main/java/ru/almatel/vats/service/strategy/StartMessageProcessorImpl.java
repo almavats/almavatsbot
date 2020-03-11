@@ -18,13 +18,13 @@ public class StartMessageProcessorImpl implements MessageProcessor {
     @Override
     public SendMessage process(Message message) {
         return new SendMessage()
-                .setChatId(message.getFrom().getId() + "")
+                .setChatId(message.getChat().getId() + "")
                 .setText(ANSWER_TEXT)
                 .enableMarkdown(true);
     }
 
     @Override
     public boolean matchCommand(String command) {
-        return command.startsWith(COMMAND);
+        return command != null && command.startsWith(COMMAND);
     }
 }
